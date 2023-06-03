@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<h1>Details:</h1>
+<div class="container">
+    <div th:each="el : ${task}" class="info">
+        <div class="element">
+            <h3 th:text="${el.name}"/>
+            <h3 th:text="${el.description}"/>
+            <p th:text="${el.done}"/>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
