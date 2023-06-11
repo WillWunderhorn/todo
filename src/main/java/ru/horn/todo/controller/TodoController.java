@@ -4,66 +4,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.horn.todo.dto.TaskDto;
 import ru.horn.todo.entity.Task;
 import ru.horn.todo.repo.TaskRepository;
-import ru.horn.todo.service.TodoService;
+import ru.horn.todo.service.impl.TodoServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/")
 public class TodoController {
-    TaskRepository taskRepository;
-    TodoService todoService;
+    private TaskRepository taskRepository;
+    private TodoServiceImpl todoService;
 
     @Autowired
-    public TodoController(TaskRepository taskRepository, TodoService todoService) {
+    public TodoController(TaskRepository taskRepository, TodoServiceImpl todoService) {
         this.taskRepository = taskRepository;
         this.todoService = todoService;
     }
 
     @GetMapping("/")
     public String getMainPage(Model model) {
-        List<Task> tasks = todoService.getTasks();
+        List<TaskDto> tasks = todoService.getTasks();
         model.addAttribute("tasks", tasks);
         return "index";
     }
 
     @GetMapping("/add")
-    public String getAddPage(Model model) {
+    public String getAddPage() {
         return "addPage";
-    }
-
-    @PostMapping("/")
-    @ResponseBody
-    public List<Task> addNewTask(@RequestBody Task task) {
-        todoService.addNewTask(task);
-        return taskRepository.findAll();
     }
 
     @PostMapping("/add")
     public String addNewTaskFromForm(
             @RequestParam(defaultValue = "New task") String name,
             @RequestParam String description,
-            @RequestParam(defaultValue = "false") boolean done,
-            Model model
+            @RequestParam(defaultValue = "false") boolean done
     ) {
-        Task task = new Task(name, description, done);
-        taskRepository.save(task);
+        todoService.addNewTask(name, description, done);
         return "redirect:/";
     }
 
-    @PostMapping(path = "/delete/{id}")
-    public String removeTask(@PathVariable(value = "id") long id, Model model) {
-        Task task = taskRepository.findById(id).orElseThrow();
-        taskRepository.delete(task);
+    @PostMapping("/delete/{id}")
+    public String removeTask(@PathVariable(value = "id") long id) {
+        todoService.removeTask(id);
         return "redirect:/";
     }
 
-    @GetMapping(path = "/{id}/edit")
+    @GetMapping("/{id}/edit")
     public String editTask(@PathVariable(value = "id") long id, Model model) {
-        if (!taskRepository.existsById(id)){
+        if (!taskRepository.existsById(id)) {
             return "redirect:/";
         }
         Optional<Task> task = taskRepository.findById(id);
@@ -78,14 +70,9 @@ public class TodoController {
             @PathVariable(value = "id") long id,
             @RequestParam(defaultValue = "New task") String name,
             @RequestParam String description,
-            @RequestParam(defaultValue = "false") boolean done,
-            Model model
+            @RequestParam(defaultValue = "false") boolean done
     ) {
-        Task task = taskRepository.findById(id).orElseThrow();
-        task.setName(name);
-        task.setDescription(description);
-        task.setDone(done);
-        taskRepository.save(task);
+        todoService.editTask(id, name, description, done);
         return "redirect:/";
     }
 }

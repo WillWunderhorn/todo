@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TODO</title>
-
+    <title>Тудушка</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -18,7 +17,6 @@
                     <h3 class="desc" th:text=" '- ' + ${el.description}"/>
                     <p class="iscompleted" th:text=" 'completed: ' + ${el.done}"/>
                 </ul>
-
             </div>
             <div class="buttons">
                 <form class="ed" th:action="${el.id} + '/edit'" method="get">
@@ -26,21 +24,12 @@
                     <button class="edit_btn" type="submit">Edit</button>
                 </form>
                 <form class="del" th:action="'/delete/' + ${el.id}" method="post">
-                    <input type="hidden" name="_method" value="delete"/>
+                    <input type="hidden" name="_method" value="post"/>
                     <button class="btn" type="submit">Delete</button>
                 </form>
             </div>
-
-
         </div>
-
     </div>
 </div>
-
 </body>
-<div class="why">
-    <h1 class="tag">Made this with ❤❤❤</h1>
-    <h1 class="subTag" >and tea</h1>
-</div>
-
 </html>

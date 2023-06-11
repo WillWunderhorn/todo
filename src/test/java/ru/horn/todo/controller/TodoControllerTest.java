@@ -1,28 +1,21 @@
 package ru.horn.todo.controller;
 
-import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import ru.horn.todo.entity.Task;
 import ru.horn.todo.repo.TaskRepository;
-import ru.horn.todo.service.TodoService;
+import ru.horn.todo.service.impl.TodoServiceImpl;
 
 class TodoControllerTest {
 
     @Mock
-    private TodoService todoService;
+    private TodoServiceImpl todoService;
     private TaskRepository taskRepository;
 
     @InjectMocks
@@ -39,7 +32,7 @@ class TodoControllerTest {
 //        List<Task> tasks = new ArrayList<>();
 //        tasks.add(new Task("Task 1", "Description 1", false));
 //        tasks.add(new Task("Task 2", "Description 2", true));
-//        when(TodoService.getTasks()).thenReturn(tasks);
+//        when(TodoServiceImpl.getTasks()).thenReturn(tasks);
 //
 //        mockMvc.perform(get("/"))
 //                .andExpect(status().isOk())
