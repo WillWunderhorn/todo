@@ -4,6 +4,7 @@ import lombok.*;
 
 @Builder
 @Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDto {

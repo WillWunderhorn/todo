@@ -14,7 +14,7 @@
             <div class="content">
                 <ul class="list">
                     <h3 class="name" th:text="${el.name}"/>
-                    <h3 class="desc" th:text=" '- ' + ${el.description}"/>
+                    <h3 class="desc" th:text=" '- ' + ${el.description}" style="white-space: pre-wrap;"/>
                     <p class="iscompleted" th:text=" 'completed: ' + ${el.done}"/>
                 </ul>
             </div>

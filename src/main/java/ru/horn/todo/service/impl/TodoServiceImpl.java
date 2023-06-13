@@ -16,14 +16,11 @@ import java.util.stream.Collectors;
 @Service
 public class TodoServiceImpl implements ToDoServiceInt {
     private TaskRepository taskRepository;
-    private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public TodoServiceImpl(TaskRepository repo, JdbcTemplate jdbcTemplate) {
+    public TodoServiceImpl(TaskRepository repo) {
         this.taskRepository = repo;
-        this.jdbcTemplate = jdbcTemplate;
     }
-
 
     @Override
     public List<TaskDto> getTasks() {

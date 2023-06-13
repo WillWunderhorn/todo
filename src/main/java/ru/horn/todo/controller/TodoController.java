@@ -1,13 +1,15 @@
 package ru.horn.todo.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.horn.todo.dto.TaskDto;
 import ru.horn.todo.entity.Task;
 import ru.horn.todo.repo.TaskRepository;
-import ru.horn.todo.service.impl.TodoServiceImpl;
+import ru.horn.todo.service.ToDoServiceInt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,10 @@ import java.util.Optional;
 @RequestMapping("/")
 public class TodoController {
     private TaskRepository taskRepository;
-    private TodoServiceImpl todoService;
+    private ToDoServiceInt todoService;
 
     @Autowired
-    public TodoController(TaskRepository taskRepository, TodoServiceImpl todoService) {
+    public TodoController(TaskRepository taskRepository, ToDoServiceInt todoService) {
         this.taskRepository = taskRepository;
         this.todoService = todoService;
     }

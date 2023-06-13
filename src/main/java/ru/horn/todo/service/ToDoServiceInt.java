@@ -8,5 +8,6 @@ public interface ToDoServiceInt {
     List<TaskDto> getTasks();
     void addNewTask(String name, String description, Boolean done);
     void editTask(Long id, String name, String description, Boolean done);
+    void removeTask(Long id);
 
 }
